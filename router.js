@@ -1,11 +1,11 @@
 const express = require('express')
 const db = require('./data/db.js')
-const router = express.Router
+const router = express.Router()
 const { find } = db
-const { findById } = db
-const { insert } = db
-const { update } = db
-const { remove } = db
+// const { findById } = db
+// const { insert } = db
+// const { update } = db
+// const { remove } = db
 
 
 router.get('/', async (req, res) => {
