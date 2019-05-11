@@ -1,4 +1,5 @@
-const express = require('express')
-const server = require(express)
+const server = require('./server.js')
 
-server.use(express.json())
+server.listen(6492, () => {
+    console.log('\n*** Server running on localhost:6492 ***\n')
+}) 
