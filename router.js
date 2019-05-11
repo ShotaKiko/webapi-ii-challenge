@@ -2,7 +2,7 @@ const express = require('express')
 const db = require('./data/db.js')
 const router = express.Router()
 const { find } = db
-// const { findById } = db
+const { findById } = db
 const { insert } = db
 // const { update } = db
 // const { remove } = db
@@ -20,6 +20,24 @@ router.get('/', async (req, res) => {
         // console.log(error)
         res.status(500).json({
             message: "The posts information could not be retrieved.",
+        })
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    try{
+        try{
+            const { id } = req.params
+            const identifiedPost = await findById(id);
+            res.status(200).json(identifiedPost)
+        } catch (error) {
+            res.status(404).json({
+                message: "The post with the specified ID does not exist."
+            })
+        }
+    } catch(error) {
+        res.status(500).json({
+            message: "The post information could not be retrieved"
         })
     }
 })
