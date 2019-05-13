@@ -4,8 +4,8 @@ const router = express.Router()
 const { find } = db
 const { findById } = db
 const { insert } = db
-// const { update } = db
-// const { remove } = db
+const { update } = db
+const { remove } = db
 
 // router.use(express.json())
 //needed ^^^^^^^ or not??not needed
@@ -50,6 +50,31 @@ router.post('/', async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: "There was an error while saving the post to the database."
+        })
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    try{
+        const { id } =req.params
+        await remove(id)
+        res.status(202)
+    } catch (error) {
+        res.status(404).json({
+            message:"The post with the specified id does not exist"
+        })
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    try{
+        const id = req.params.id
+        const body = req.body
+        const updatedPost = await update(id, body)
+        res.status(204).json(updatedPost) 
+    } catch (error) {
+        res.status(404).json({
+            message: "The post with the specified id does not exist"
         })
     }
 })
